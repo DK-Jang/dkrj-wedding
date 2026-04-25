@@ -29,5 +29,5 @@ window.WEDDING_CONFIG = {
     appId: "1:50367259286:web:859e4ba0a6c3d3ba2a98b7",
   },
   guestbookCollection: "guestbook",
-  guestbookAdminPassword: "0000",
+  guestbookAdminPassword: "wkdrkans12",
 };
