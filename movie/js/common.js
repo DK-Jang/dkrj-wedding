@@ -213,7 +213,7 @@ const mapAPI = function (latitude, longitude, customOptions = {}) {
     position: new naver.maps.LatLng(latitude, longitude),
     map: map,
     icon: {
-      url: '/movie/images/movie_marker.png',
+      url: 'movie/images/movie_marker.png',
       size: new naver.maps.Size(40, 38),
       scaledSize: new naver.maps.Size(40, 38),
       origin: new naver.maps.Point(0, 0),
@@ -289,7 +289,7 @@ function accordionFn() {
 function shareFn() {
   if (document.querySelector(".popup-share")) return;
 
-  fetch("/movie/partials/share.html")
+  fetch("movie/partials/share.html")
     .then(res => res.text())
     .then(html => {
       // body에 share.html 주입
