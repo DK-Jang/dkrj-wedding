@@ -21,12 +21,12 @@ window.WEDDING_CONFIG = {
   //    https://console.firebase.google.com/ > Project settings > 일반 > 내 앱 > SDK 설정
   //    Firestore rules can be public-read while you only collect text (see README).
   firebase: {
-    apiKey: "YOUR_FIREBASE_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID",
+    apiKey: "AIzaSyBs3SDrDeqWycGlackNooBmpOrIuFRM0Nw",
+    authDomain: "dkrj-wedding.firebaseapp.com",
+    projectId: "dkrj-wedding",
+    storageBucket: "dkrj-wedding.firebasestorage.app",
+    messagingSenderId: "50367259286",
+    appId: "1:50367259286:web:859e4ba0a6c3d3ba2a98b7",
   },
   guestbookCollection: "guestbook",
   guestbookAdminPassword: "0000",
