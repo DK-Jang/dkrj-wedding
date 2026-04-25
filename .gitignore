@@ -7,3 +7,6 @@
 
 # Logs
 *.log
+
+# Local-only docs (kept on disk for reference, never pushed)
+README.md
