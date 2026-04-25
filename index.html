@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://oapi.map.naver.com https://t1.kakaocdn.net https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net data:; img-src 'self' data: blob: https:; connect-src 'self' https://*.googleapis.com https://script.google.com https://script.googleusercontent.com https://*.pstatic.net https://oapi.map.naver.com https://*.naver.com https://*.kakao.com; frame-src https://sharer.kakao.com https://*.kakao.com https://accounts.kakao.com; media-src 'self' https: blob:; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="assets/images/favicon.png" />
     <link rel="stylesheet" href="css/common.css" />
@@ -417,11 +418,6 @@
         <div class="group-sns" data-aos="fade-up">
           <ul class="list-sns">
             <li>
-              <a href="https://www.instagram.com/repocu.love/" class="link-sns link-insta screen-out">
-                레포쿠 인스타그램
-              </a>
-            </li>
-            <li>
               <button class="link-sns link-share screen-out">공유하기</button>
             </li>
           </ul>
@@ -459,6 +455,7 @@
         <strong class="tit-g">참석 정보</strong>
         <div class="wrap-form">
           <form id="rsvpForm">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none">
             <div class="box-tf">
               <span class="tit-tf">참석 여부 <span class="txt-require">*</span></span>
               <div class="item-inp">
@@ -584,8 +581,14 @@
       }
       // Firebase compat (only if config provided)
       if (cfg.firebase && cfg.firebase.apiKey && cfg.firebase.apiKey !== 'YOUR_FIREBASE_API_KEY') {
-        inject('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js');
-        inject('https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js');
+        inject('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js', {
+          integrity: 'sha384-ajMUFBUFMCyjh8uxJg6bkGcKe9RTolyjwbxB3yES0QQMenP3Oztj/W9vA2SJPcIh',
+          crossOrigin: 'anonymous',
+        });
+        inject('https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js', {
+          integrity: 'sha384-XMIl1b2Ez9tKAM0R5q67/iLdfnlLBl9kfo40X5WMtCPb+3OLplrjnOxZTYCg1SKY',
+          crossOrigin: 'anonymous',
+        });
       }
     })();
   </script>

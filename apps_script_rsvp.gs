@@ -18,23 +18,45 @@ const SHEET_ID = "PASTE_YOUR_GOOGLE_SHEET_ID_HERE";
 const SHEET_NAME = "RSVP";
 const HEADERS = ["timestamp", "attend", "side", "name", "phone", "count", "meal", "message"];
 
+const ATTEND_VALUES = ["참석", "불참"];
+const SIDE_VALUES = ["신랑측", "신부측"];
+const MAX_LENGTHS = { name: 30, phone: 30, count: 10, meal: 30, message: 500 };
+
 function doPost(e) {
   try {
-    const sheet = getOrCreateSheet_();
     const params = e.parameter || {};
+    // Honeypot — bots fill all fields, humans never see this one.
+    // Pretend success so bots can't probe for rejection.
+    if (params.website) {
+      return jsonOut_({ ok: true });
+    }
+    if (ATTEND_VALUES.indexOf(params.attend) === -1) {
+      return jsonOut_({ ok: false, error: "invalid attend" });
+    }
+    if (params.side && SIDE_VALUES.indexOf(params.side) === -1) {
+      return jsonOut_({ ok: false, error: "invalid side" });
+    }
+    for (const key in MAX_LENGTHS) {
+      if (params[key] && String(params[key]).length > MAX_LENGTHS[key]) {
+        return jsonOut_({ ok: false, error: "field too long: " + key });
+      }
+    }
+    const sheet = getOrCreateSheet_();
     const row = HEADERS.map((key) => {
       if (key === "timestamp") return new Date();
       return params[key] || "";
     });
     sheet.appendRow(row);
-    return ContentService.createTextOutput(JSON.stringify({ ok: true })).setMimeType(
-      ContentService.MimeType.JSON
-    );
+    return jsonOut_({ ok: true });
   } catch (err) {
-    return ContentService.createTextOutput(
-      JSON.stringify({ ok: false, error: String(err) })
-    ).setMimeType(ContentService.MimeType.JSON);
+    return jsonOut_({ ok: false, error: String(err) });
   }
+}
+
+function jsonOut_(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(
+    ContentService.MimeType.JSON
+  );
 }
 
 function doGet() {
