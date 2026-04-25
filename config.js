@@ -10,7 +10,7 @@ window.WEDDING_CONFIG = {
   // 2) Kakao Developers > 내 애플리케이션 > 앱 키 > JavaScript 키
   //    https://developers.kakao.com/console/app
   //    Plus: Platform > Web에 도메인 등록 (http://127.0.0.1:5173 / 본인 도메인).
-  kakaoJsKey: "YOUR_KAKAO_JS_KEY",
+  kakaoJsKey: "b558478d0be978478905744cfc72f8c5",
 
   // 3) Google Apps Script Web App URL for RSVP submissions.
   //    Deploy the script in apps_script_rsvp.gs (see README) as "Web app", access = Anyone.
