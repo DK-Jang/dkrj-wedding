@@ -15,7 +15,7 @@ window.WEDDING_CONFIG = {
   // 3) Google Apps Script Web App URL for RSVP submissions.
   //    Deploy the script in apps_script_rsvp.gs (see README) as "Web app", access = Anyone.
   //    Paste the resulting "Web app URL" (https://script.google.com/macros/s/AKfy.../exec).
-  rsvpScriptUrl: "YOUR_GOOGLE_APPS_SCRIPT_URL",
+  rsvpScriptUrl: "https://script.google.com/macros/s/AKfycbwsj7fxOnvfjfH9VbAJhSDKgyA9MselrdvHLVKHYT7YAP7qsl4CRuhoijS-A7cW1Yb8xQ/exec",
 
   // 4) Firebase project (Firestore in native mode).
   //    https://console.firebase.google.com/ > Project settings > 일반 > 내 앱 > SDK 설정
