@@ -697,6 +697,7 @@ function guestBook(collection, options = {}) {
         document
           .getElementById("guestbook-popup")
           .classList.remove("openModal");
+        loadGuestbook();
       })
       .catch((error) => {
         alert("방명록 전송 실패");
