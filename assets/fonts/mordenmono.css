@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "modernmono";
+  src: local("modernmono"),
+    url(https://repocu.kr/assets/fonts/mordenmono/lmmono10-regular.woff) format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "KCC-Ahnchangho";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/KCC-Ahnchangho.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}

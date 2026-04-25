@@ -1,0 +1,318 @@
+@charset "UTF-8";
+html, body {
+  -webkit-text-size-adjust: none; /* 크롬, 사파리, 오페라(신버전) */
+  -ms-text-size-adjust: none; /* IE, Edge */
+  -moz-text-size-adjust: none; /* 파이어폭스 */
+  -o-text-size-adjust: none; /* 오페라(구버전) */
+  text-size-adjust: none; /* 표준 속성 */
+}
+
+/* top 버튼 */
+.wrap-top {
+  position: fixed;
+  right: 16px;
+  bottom: 24px;
+  bottom: calc(constant(safe-area-inset-bottom) + 24px);
+  bottom: calc(env(safe-area-inset-bottom) + 24px);
+  z-index: 99;
+}
+.wrap-top:before {
+  position: absolute;
+  left: 15px;
+  top: 17px;
+  z-index: 9;
+  display: inline-block;
+  width: 18px;
+  height: 10px;
+  background: url(https://repocu.kr/assets/images/common/ico_arrow_up.png) 0/100% no-repeat;
+  content: "";
+}
+.wrap-top .btn-top {
+  display: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.03);
+}
+
+/* Tab */
+.inner-tab .list-tab {
+  display: flex;
+  justify-content: center;
+  width: calc(100% - 32px);
+  margin: 54px auto 0;
+}
+.inner-tab .list-tab li {
+  width: 50%;
+  border-bottom: 2px solid #d6cec8;
+  color: #9e9a9a;
+}
+.inner-tab .list-tab li.active {
+  border-color: #baae9f;
+  color: #191919;
+}
+.inner-tab .list-tab li .btn-tab {
+  width: 100%;
+  height: 40px;
+  font-size: 14px;
+  font-family: "Pretendard";
+  font-weight: 400;
+}
+.inner-tab .inner-box {
+  margin-top: 30px;
+  padding: 0 16px;
+}
+.inner-tab .inner-box .item-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+.inner-tab .inner-box .item-box + .item-box {
+  margin-top: 24px;
+}
+.inner-tab .inner-box .item-box .txt-tag {
+  display: inline-block;
+  font-size: 14px;
+}
+.inner-tab .inner-box .item-box .txt-name {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.inner-tab .inner-box .item-box .link-phone {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+  background: url(https://repocu.kr/assets/images/common/btn_tel.png) 0/100% no-repeat;
+}
+.inner-tab .inner-box .item-box .left-item {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  padding-left: 10px;
+}
+.inner-tab .inner-box .item-box .right-item {
+  display: flex;
+  justify-content: end;
+}
+.inner-tab .inner-box .item-box .btn-item {
+  width: 65px;
+  height: 30px;
+  background-size: 100%;
+  font-size: 0;
+}
+.inner-tab .inner-box .item-box .btn-item.btn-acconut {
+  margin-left: 6px;
+  background-image: url(https://repocu.kr/assets/images/common/btn_account.png);
+}
+.inner-tab .inner-box .item-box .btn-item.btn-kakaopay {
+  width: 50px;
+  background-image: url(https://repocu.kr/assets/images/common/btn_kakaopay.png);
+}
+.inner-tab .inner-box .img-thumb {
+  display: block;
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+}
+.inner-tab .inner-box .txt-info {
+  margin-top: 30px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+.inner-tab .tab-box {
+  display: none;
+  font-size: 0;
+}
+.inner-tab .tab-box.active {
+  display: block;
+}
+
+.cont-account .group-account + .group-account {
+  margin-top: 24px;
+}
+.cont-account .group-account .item-box {
+  padding: 0 10px 0 0;
+}
+.cont-account .group-account .item-account {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% - 20px);
+  margin: 8px auto 0;
+  padding: 5px 15px 5px 20px;
+  font-size: 16px;
+  background: #D6CEC8;
+  border-radius: 4px;
+}
+.cont-account .group-account .item-account .txt-account {
+  font-size: 14px;
+}
+.cont-account .group-account .item-account .btn-item {
+  width: 30px;
+  height: 30px;
+  font-size: 0;
+  background: url(https://repocu.kr/assets/images/common/ic_copy_16.png) center/16px no-repeat;
+}
+
+/* swiper-info */
+.swiper-info {
+  margin-top: 40px;
+  padding-bottom: 60px;
+}
+.swiper-info .swiper-pagination-bullet {
+  opacity: 0.3;
+  width: 6px;
+  height: 6px;
+  margin: 0 2px !important;
+  background: #191919;
+}
+.swiper-info .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+.swiper-info .img-thumb {
+  display: block;
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+}
+.swiper-info .tit-info {
+  display: block;
+  opacity: 0.8;
+  margin-top: 30px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.swiper-info .txt-info {
+  display: block;
+  opacity: 0.8;
+  margin-top: 10px;
+  font-size: 13px;
+  letter-spacing: -0.4px;
+}
+
+/* single-info */
+.inner-information {
+  margin-top: 40px;
+  padding: 0 16px;
+}
+.inner-information .img-thumb {
+  display: block;
+  width: 100%;
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+}
+.inner-information .tit-info {
+  display: block;
+  margin-top: 30px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.inner-information .txt-info {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.cont-audio {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 99;
+}
+.cont-audio .btn-audio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 83px;
+  height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  background: rgba(39, 39, 39, 0.5);
+  backdrop-filter: blur(3px);
+}
+.cont-audio .btn-audio .txt-audio {
+  color: #eee;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+.cont-audio .btn-audio .ico-sound {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url(https://repocu.kr/assets/images/common/ico_sound.png);
+  background-size: 20px;
+  background-repeat: no-repeat;
+}
+.cont-audio .btn-audio .ico-sound.ico-muted {
+  background-image: url(https://repocu.kr/assets/images/common/ico_sound_mute.png);
+}
+
+.cont-location .box-way {
+  margin-top: 20px;
+  text-align: left;
+  font-size: 13px;
+}
+.cont-location .item-way.active .inner-cont {
+  display: block;
+}
+.cont-location .item-way.active .tit-loca:after {
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+}
+.cont-location .item-way .tit-loca {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  line-height: 58px;
+  color: #111;
+  font-weight: 500;
+}
+.cont-location .item-way .tit-loca:after {
+  display: block;
+  width: 20px;
+  height: 20px;
+  content: "";
+  background: url(../assets/images/common/ic_arrow_20.png) 0/100% no-repeat;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+}
+.cont-location .item-way .inner-cont {
+  display: none;
+  padding: 0 10px 10px;
+}
+.cont-location .item-way .cont-loca {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #333;
+}
+.cont-location .item-way .cont-loca + .cont-loca {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px dashed #999;
+}
+.cont-location .item-way .cont-loca .tit-info {
+  font-size: 14px;
+  font-weight: 500;
+}
+.cont-location .item-way .cont-loca .txt-info {
+  font-size: 13px;
+  white-space: pre-line;
+}
+.cont-location .item-way .cont-loca .txt-info + .txt-info {
+  margin-top: 10px;
+}
+
+/*# sourceMappingURL=component.css.map */
