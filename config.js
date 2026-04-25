@@ -29,5 +29,6 @@ window.WEDDING_CONFIG = {
     appId: "1:50367259286:web:859e4ba0a6c3d3ba2a98b7",
   },
   guestbookCollection: "guestbook",
-  guestbookAdminPassword: "wkdrkans12",
+  // Guestbook entries are operator-deleted only (Firebase Console).
+  // No client-side admin password — keeping secrets out of the public bundle.
 };

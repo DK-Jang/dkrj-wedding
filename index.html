@@ -547,26 +547,8 @@
             <textarea id="content" maxlength="100" placeholder="축하 메시지 (최대 100자)" required></textarea>
             <span class="txt-all"><span class="txt-num txt-cont">0</span>/100</span>
           </div>
-          <div class="box-tf">
-            <input id="password" type="password" maxlength="4" placeholder="삭제용 비밀번호 (4자)" required>
-            <span class="txt-all"><span class="txt-num txt-password">0</span>/4</span>
-          </div>
           <button class="btn-apply" type="submit">등록하기</button>
         </form>
-        <button class="btn-close" type="button">닫기</button>
-      </div>
-    </div>
-
-    <!-- Guestbook delete password popup -->
-    <div class="popup" id="guest-delete-popup">
-      <div class="dim"></div>
-      <div class="inner-form inner-password">
-        <strong class="tit-g">비밀번호 확인</strong>
-        <span class="txt-password">작성 시 입력한 비밀번호를 입력해 주세요.</span>
-        <div class="box-tf">
-          <input id="delete-password" type="password" maxlength="32" placeholder="비밀번호">
-        </div>
-        <button class="btn-apply" id="confirm-delete" type="button">삭제하기</button>
         <button class="btn-close" type="button">닫기</button>
       </div>
     </div>
@@ -663,7 +645,7 @@
       if (firebaseReady && cfg.firebase && cfg.firebase.apiKey !== 'YOUR_FIREBASE_API_KEY') {
         if (!firebase.apps.length) firebase.initializeApp(cfg.firebase);
         window.db = firebase.firestore();
-        guestBook(cfg.guestbookCollection || 'guestbook', { adminPassword: cfg.guestbookAdminPassword });
+        guestBook(cfg.guestbookCollection || 'guestbook');
       }
     });
 

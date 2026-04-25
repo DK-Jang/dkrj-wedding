@@ -504,23 +504,19 @@ function guestWrite() {
   const inputs = {
     nickname: $("#nickname"),
     content: $("#content"),
-    password: $("#password"),
   };
   const counters = {
     nickname: inpForm.querySelector(".txt-nick"),
     content: inpForm.querySelector(".txt-cont"),
-    password: inpForm.querySelector(".txt-password"),
   };
   const updateUI = () => {
     const nickname = inputs.nickname.value.trim();
     const content = inputs.content.value.trim();
-    const password = inputs.password.value.trim();
 
     counters.nickname.textContent = nickname.length;
     counters.content.textContent = content.length;
-    counters.password.textContent = password.length;
 
-    const isFilled = nickname && content && password;
+    const isFilled = nickname && content;
     btnApply.classList.toggle("active", isFilled);
   };
   inpForm.addEventListener("input", updateUI);
@@ -669,8 +665,9 @@ const ticketFn = () => {
 };
 ticketFn();
 
-//guestbook guestBook(collection,{ adminPassword: "" });
-function guestBook(collection, options = {}) {
+// Guestbook: writers store nickname/content only. Deletion is operator-only via Firestore Console
+// (no client password to avoid plaintext credentials in public storage).
+function guestBook(collection) {
   const db = window.db;
   if (!db) return;
   const form = $("#guestbook-form");
@@ -678,19 +675,13 @@ function guestBook(collection, options = {}) {
     e.preventDefault();
     const nickname = $("#nickname").value;
     const content = $("#content").value;
-    const password = $("#password").value;
     const now = new Date();
     const date = `${now.getFullYear()}. ${
       now.getMonth() + 1
     }. ${now.getDate()}`;
 
     db.collection(collection)
-      .add({
-        nickname: nickname,
-        content: content,
-        password: password,
-        date: date,
-      })
+      .add({ nickname, content, date })
       .then(() => {
         alert("방명록 전송 완료!");
         form.reset();
@@ -699,21 +690,23 @@ function guestBook(collection, options = {}) {
           .classList.remove("openModal");
         loadGuestbook();
       })
-      .catch((error) => {
+      .catch(() => {
         alert("방명록 전송 실패");
       });
   });
-  //view
+
   function loadGuestbook() {
     const messagesContainer = $("#guestbook-messages");
-    messagesContainer.innerHTML = "";
-    
+    messagesContainer.replaceChildren();
+
     db.collection(collection)
       .orderBy("date", "desc")
       .get()
       .then((snapshot) => {
         if (snapshot.empty) {
-          messagesContainer.innerHTML = '<span class="txt-empty"></span>';
+          const empty = document.createElement("span");
+          empty.className = "txt-empty";
+          messagesContainer.appendChild(empty);
           return;
         }
         const messagesInner = document.createElement("div");
@@ -721,19 +714,25 @@ function guestBook(collection, options = {}) {
         messagesContainer.appendChild(messagesInner);
 
         snapshot.forEach((doc) => {
-          const messageData = doc.data();
-          const messageElement = document.createElement("div");
-          messageElement.classList.add("swiper-slide");
+          const data = doc.data();
+          const slide = document.createElement("div");
+          slide.classList.add("swiper-slide");
 
-          messageElement.innerHTML = `
-            <strong class="txt-cont">${messageData.content}</strong>
-            <span class="tit-name">${messageData.nickname}</span>
-            <span class="txt-date">${messageData.date}</span>
-            <button class="btn-guest-del" data-id="${doc.id}"><span class="screen-out">삭제</span></button>
-          `;
-          messagesInner.appendChild(messageElement);
+          const txtCont = document.createElement("strong");
+          txtCont.className = "txt-cont";
+          txtCont.textContent = data.content || "";
+
+          const titName = document.createElement("span");
+          titName.className = "tit-name";
+          titName.textContent = data.nickname || "";
+
+          const txtDate = document.createElement("span");
+          txtDate.className = "txt-date";
+          txtDate.textContent = data.date || "";
+
+          slide.append(txtCont, titName, txtDate);
+          messagesInner.appendChild(slide);
         });
-        addDeleteEventListeners();
         new Swiper("#guestbook-messages", {
           slidesPerView: "auto",
           loop: true,
@@ -748,95 +747,7 @@ function guestBook(collection, options = {}) {
       })
       .catch((error) => {
         console.error("Error loading messages: ", error);
-      }
-    );
-  }
-  function addDeleteEventListeners() {
-    const deleteButtons = document.querySelectorAll('.btn-guest-del');
-    deleteButtons.forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.stopPropagation(); // 이벤트 버블링 방지
-        const docId = this.getAttribute('data-id');
-        showDeletePopup(docId);
       });
-    });
-  }
-  function showDeletePopup(docId) {
-    const popupDel = document.getElementById('guest-delete-popup');
-    const confirmBtn = document.getElementById('confirm-delete');
-    const passwordInput = document.getElementById('delete-password');
-    const btnCloseDel = $("#guest-delete-popup .btn-close");
-    
-    popupDel.classList.add("openModal")
-    passwordInput.value = '';
-    
-    passwordInput.addEventListener('input', function() {
-      if (this.value.trim() !== '') {
-        confirmBtn.classList.add('active');
-      } else {
-        confirmBtn.classList.remove('active');
-      }
-    });
-    
-    // 확인 버튼 클릭 이벤트
-    confirmBtn.onclick = function() {
-      const inputPassword = passwordInput.value;
-      if (!inputPassword) {
-        alert('비밀번호를 입력해주세요.');
-        return;
-      }
-      deleteGuestbookEntry(docId, inputPassword);
-    };
-    // 취소 버튼 클릭 이벤트
-    btnCloseDel.addEventListener("click", function () {
-      console.log("ddd");
-      popupDel.classList.remove("openModal");
-    })
-  }
-  // 방명록 삭제 함수
-  function deleteGuestbookEntry(docId, inputPassword) {
-    // 먼저 해당 문서의 비밀번호를 확인
-    // const adminPassword = "0000";
-    const adminPassword = options.adminPassword ?? "0000";
-    if (inputPassword === adminPassword) {
-      // 관리자 비밀번호인 경우 바로 삭제
-      db.collection(collection).doc(docId).delete()
-        .then(() => {
-          alert('관리자 권한으로 방명록이 삭제되었습니다.');
-          document.getElementById('guest-delete-popup').classList.remove("openModal");
-          loadGuestbook(); // 방명록 다시 로드
-        })
-        .catch((error) => {
-          alert('삭제 중 오류가 발생했습니다.');
-          console.error('Error deleting document: ', error);
-        });
-      return;
-    }
-
-    db.collection(collection).doc(docId).get()
-      .then((doc) => {
-        if (doc.exists) {
-          const data = doc.data();
-          if (data.password === inputPassword) {
-            // 비밀번호가 일치하면 삭제
-            return db.collection(collection).doc(docId).delete();
-          } else {
-            throw new Error('비밀번호가 일치하지 않습니다.');
-          }
-        } else {
-          throw new Error('해당 방명록을 찾을 수 없습니다.');
-        }
-      })
-      .then(() => {
-        alert('방명록이 삭제되었습니다.');
-        document.getElementById('guest-delete-popup').classList.remove("openModal");
-        loadGuestbook(); // 방명록 다시 로드
-      })
-      .catch((error) => {
-        alert(error.message || '삭제 중 오류가 발생했습니다.');
-        console.error('Error deleting document: ', error);
-      }
-    );
   }
   loadGuestbook();
 }
