@@ -295,3 +295,17 @@
   font-size:16px;
   color:#fff;
 }
+
+/* Narrow phones (iPhone SE 1st gen, Galaxy Fold front) — keep popups inside viewport. */
+@media (max-width: 360px) {
+  .popup .inner-form,
+  .popup .inner-share {
+    width: calc(100vw - 24px);
+    left: 12px;
+  }
+  .popup .box-tf,
+  .popup-rsvp .item-inp {
+    width: 100%;
+    max-width: calc(100vw - 64px);
+  }
+}

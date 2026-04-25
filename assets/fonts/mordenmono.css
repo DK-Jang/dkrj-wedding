@@ -1,14 +1,7 @@
-@font-face {
-  font-family: "modernmono";
-  src: local("modernmono"),
-    url(https://repocu.kr/assets/fonts/mordenmono/lmmono10-regular.woff) format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "KCC-Ahnchangho";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/KCC-Ahnchangho.woff2")
-    format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
+/*
+Original template referenced "modernmono" and "KCC-Ahnchangho", but neither font
+family is applied by any CSS rule — they were dead @font-face declarations whose
+sources blocked CORS from non-repocu.kr origins. Stripped to keep the @import
+target valid without making external requests. If you ever need them, redeclare
+the @font-face with CDN-hosted sources here.
+*/

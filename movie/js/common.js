@@ -422,49 +422,49 @@ function rsvpFn(SCRIPT_URL) {
   const popupRSVP = $(".popup-rsvp");
   const popupAttend = $(".popup-attend");
   const form = document.getElementById('rsvpForm');
-  window.addEventListener('DOMContentLoaded', function() {
-    // const openBtn = document.querySelector('[data-role="open-attend"]');
-    const close = document.querySelector('.popup-attend .btn-close');
-    const submit = document.querySelector('.popup-attend .btn-submit');
-  
-    // openBtn.addEventListener('click', () => {
-    //   popupAttend.classList.add('openModal');
-    // });
-    close.addEventListener('click', () => {
-      popupAttend.classList.remove('openModal');
-    });
-    submit.addEventListener('click', () => {
-      popupAttend.classList.remove('openModal');
-      popupRSVP.classList.add('openModal');
-    });
+  if (!popupRSVP || !popupAttend || !form) return;
 
-    const target =
-      document.querySelector(".cont-calendar") ||
-      document.querySelector(".cont-cast");
+  const close = document.querySelector('.popup-attend .btn-close');
+  const submit = document.querySelector('.popup-attend .btn-submit');
 
-    if (!target || !popupAttend) return;
-    const observer = new IntersectionObserver((entries,obs) => {
+  close.addEventListener('click', () => {
+    popupAttend.classList.remove('openModal');
+  });
+  submit.addEventListener('click', () => {
+    popupAttend.classList.remove('openModal');
+    popupRSVP.classList.add('openModal');
+  });
+
+  const target =
+    document.querySelector(".cont-calendar") ||
+    document.querySelector(".cont-cast");
+
+  if (target) {
+    const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           popupAttend.classList.add("openModal");
           obs.disconnect();
-        } else {
-          popupAttend.classList.remove("openModal");
         }
       });
-    }, {
-      threshold: 1
-    });
+    }, { threshold: 1 });
     observer.observe(target);
-  });
+  }
 
   const submitButton = document.querySelector('.popup-rsvp .btn-submit');
+  const hasRealUrl = scriptURL && scriptURL !== 'about:blank' && /^https?:/.test(scriptURL);
   form.addEventListener('submit', e => {
     e.preventDefault();
+    if (!hasRealUrl) {
+      alert('데모 모드: config.js의 rsvpScriptUrl을 등록하면 실제 전송됩니다.\n현재 입력값:\n' +
+        Array.from(new FormData(form).entries()).map(([k,v]) => `${k}: ${v}`).join('\n'));
+      return;
+    }
+    const original = submitButton.textContent;
     submitButton.textContent = '전송 중...';
 
     fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-      .then(response => {
+      .then(() => {
         alert("참석여부가 정상적으로 제출되었습니다!")
         form.reset();
         $(".popup-rsvp").classList.remove("openModal")
@@ -472,6 +472,9 @@ function rsvpFn(SCRIPT_URL) {
       .catch(error => {
         alert("오류가 발생했습니다. 다시 시도해주세요.")
         console.error('Error!', error.message);
+      })
+      .finally(() => {
+        submitButton.textContent = original;
       });
   });
   form.addEventListener('input', () => {
@@ -486,17 +489,10 @@ function rsvpFn(SCRIPT_URL) {
   );
 }
 
-//GuestBook
-var firebaseConfig = {
-  apiKey: "AIzaSyAnxDadr801PsS0nR1phRybtnlT0BrGSnY",
-  authDomain: "repocu-f07c8.firebaseapp.com",
-  projectId: "repocu-f07c8",
-  storageBucket: "repocu-f07c8.firebasestorage.app",
-  messagingSenderId: "746251587600",
-  appId: "1:746251587600:web:8932e686b77e5c2d01fa95",
-};
-const app = window.firebase ? firebase.initializeApp(firebaseConfig) : null;
-const db = window.firebase ? firebase.firestore() : null;
+// GuestBook — Firebase init is handled in index.html using window.WEDDING_CONFIG.firebase.
+// guestBook(collection) reads from window.db, which is set by index.html only when the
+// Firebase SDK is loaded *and* a real config has been provided in config.js.
+var db = window.db || null;
 
 function guestWrite() {
   const inpForm = $("#guestbook-form");
@@ -675,6 +671,7 @@ ticketFn();
 
 //guestbook guestBook(collection,{ adminPassword: "" });
 function guestBook(collection, options = {}) {
+  const db = window.db;
   if (!db) return;
   const form = $("#guestbook-form");
   form.addEventListener("submit", function (e) {

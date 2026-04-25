@@ -313,7 +313,7 @@
             </div>
           </div>
         </div>
-        <button class="btn-write" onclick="alert('방명록이 작성됩니다')">방명록 작성하기</button>
+        <button class="btn-write" type="button">방명록 작성하기</button>
       </div>
       <!-- Footer -->
       <div class="cont-footer">
@@ -432,50 +432,268 @@
         <button class="btn-top"><span class="screen-out">맨위로 가기</span></button>
       </div>
     </div>
+
+    <!-- RSVP attend popup (intro modal) -->
+    <div class="popup popup-attend">
+      <div class="dim"></div>
+      <div class="inner-form">
+        <strong class="tit-g">참석 의사를 전달해 주세요.<br/>두 사람에게 큰 힘이 됩니다.</strong>
+        <div class="group-couple">
+          <span class="txt-badge">신랑 장덕경</span>
+          <span class="img-and"></span>
+          <span class="txt-badge">신부 엄령주</span>
+        </div>
+        <div class="group-info">
+          <span class="txt-info txt-day">2026. 7. 4. (토) 오후 1:30</span>
+          <span class="txt-info txt-place">약현성당 · 서울 중구 청파로 447-1</span>
+        </div>
+        <button class="btn-close">닫기</button>
+        <button class="btn-apply btn-submit">참석 의사 전달하기</button>
+      </div>
+    </div>
+
+    <!-- RSVP form popup -->
+    <div class="popup popup-rsvp">
+      <div class="dim"></div>
+      <div class="inner-form">
+        <strong class="tit-g">참석 정보</strong>
+        <div class="wrap-form">
+          <form id="rsvpForm">
+            <div class="box-tf">
+              <span class="tit-tf">참석 여부 <span class="txt-require">*</span></span>
+              <div class="item-inp">
+                <label>
+                  <input class="inp-radio" type="radio" name="attend" value="참석" required>
+                  <span class="tit-lab">참석</span>
+                </label>
+                <label>
+                  <input class="inp-radio" type="radio" name="attend" value="불참">
+                  <span class="tit-lab">불참</span>
+                </label>
+              </div>
+            </div>
+            <div class="box-tf">
+              <span class="tit-tf">구분 <span class="txt-require">*</span></span>
+              <div class="item-inp">
+                <label>
+                  <input class="inp-radio" type="radio" name="side" value="신랑측" required>
+                  <span class="tit-lab">신랑측</span>
+                </label>
+                <label>
+                  <input class="inp-radio" type="radio" name="side" value="신부측">
+                  <span class="tit-lab">신부측</span>
+                </label>
+              </div>
+            </div>
+            <div class="box-tf">
+              <label>
+                <span class="tit-tf">성함 <span class="txt-require">*</span></span>
+                <input class="inp-tf" type="text" name="name" required maxlength="20" placeholder="홍길동">
+              </label>
+            </div>
+            <div class="box-tf">
+              <label>
+                <span class="tit-tf">연락처</span>
+                <input class="inp-tf" type="tel" name="phone" maxlength="20" placeholder="010-0000-0000">
+              </label>
+            </div>
+            <div class="box-tf">
+              <label>
+                <span class="tit-tf">참석 인원 <span class="txt-require">*</span></span>
+                <select name="count" required>
+                  <option value="">선택해 주세요</option>
+                  <option value="1">1명 (본인)</option>
+                  <option value="2">2명</option>
+                  <option value="3">3명</option>
+                  <option value="4">4명</option>
+                  <option value="5">5명 이상</option>
+                </select>
+              </label>
+            </div>
+            <div class="box-tf">
+              <label>
+                <span class="tit-tf">식사 여부</span>
+                <select name="meal">
+                  <option value="">선택해 주세요</option>
+                  <option value="식사함">식사함</option>
+                  <option value="식사안함">식사안함</option>
+                </select>
+              </label>
+            </div>
+            <div class="box-tf">
+              <label>
+                <span class="tit-tf">전하실 말씀</span>
+                <textarea name="message" maxlength="200" placeholder="(선택) 신랑신부에게 전할 말을 남겨주세요"></textarea>
+              </label>
+            </div>
+          </form>
+        </div>
+        <button class="btn-close">닫기</button>
+        <button class="btn-apply btn-submit" form="rsvpForm" type="submit">참석 정보 보내기</button>
+      </div>
+    </div>
+
+    <!-- Guestbook write popup -->
+    <div class="popup" id="guestbook-popup">
+      <div class="dim"></div>
+      <div class="inner-form">
+        <strong class="tit-g">방명록 작성</strong>
+        <form id="guestbook-form" class="form-guestbook">
+          <div class="box-tf">
+            <input id="nickname" type="text" maxlength="10" placeholder="이름 (최대 10자)" required>
+            <span class="txt-all"><span class="txt-num txt-nick">0</span>/10</span>
+          </div>
+          <div class="box-tf">
+            <textarea id="content" maxlength="100" placeholder="축하 메시지 (최대 100자)" required></textarea>
+            <span class="txt-all"><span class="txt-num txt-cont">0</span>/100</span>
+          </div>
+          <div class="box-tf">
+            <input id="password" type="password" maxlength="4" placeholder="삭제용 비밀번호 (4자)" required>
+            <span class="txt-all"><span class="txt-num txt-password">0</span>/4</span>
+          </div>
+          <button class="btn-apply" type="submit">등록하기</button>
+        </form>
+        <button class="btn-close" type="button">닫기</button>
+      </div>
+    </div>
+
+    <!-- Guestbook delete password popup -->
+    <div class="popup" id="guest-delete-popup">
+      <div class="dim"></div>
+      <div class="inner-form inner-password">
+        <strong class="tit-g">비밀번호 확인</strong>
+        <span class="txt-password">작성 시 입력한 비밀번호를 입력해 주세요.</span>
+        <div class="box-tf">
+          <input id="delete-password" type="password" maxlength="4" placeholder="비밀번호">
+        </div>
+        <button class="btn-apply" id="confirm-delete" type="button">삭제하기</button>
+        <button class="btn-close" type="button">닫기</button>
+      </div>
+    </div>
   </body>
+  <!-- runtime config (edit config.js to plug in your own keys) -->
+  <script src="/config.js"></script>
+
+  <!-- 3rd-party SDKs (loaded conditionally so localhost without keys still degrades gracefully) -->
+  <script>
+    (function loadSdks() {
+      const cfg = window.WEDDING_CONFIG || {};
+      function inject(src, attrs) {
+        const s = document.createElement('script');
+        s.src = src;
+        if (attrs) Object.assign(s, attrs);
+        document.head.appendChild(s);
+        return s;
+      }
+      // Naver Maps — new VPC console uses ncpKeyId (renamed from ncpClientId).
+      // Older Classic console keys still load on the same SDK URL via ncpKeyId.
+      if (cfg.naverMapClientId && cfg.naverMapClientId !== 'YOUR_NAVER_NCP_CLIENT_ID') {
+        inject('https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=' + encodeURIComponent(cfg.naverMapClientId));
+      }
+      // Kakao SDK
+      if (cfg.kakaoJsKey && cfg.kakaoJsKey !== 'YOUR_KAKAO_JS_KEY') {
+        const k = inject('https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js', {
+          integrity: 'sha384-DKYJZ8NLiK8MN4/C5P2dtSmLQ4KwPaoqAfyA/DfmEc1VDxu4yyC7wy6K1Hs90nka',
+          crossOrigin: 'anonymous',
+        });
+        k.onload = function () {
+          if (window.Kakao && !Kakao.isInitialized()) Kakao.init(cfg.kakaoJsKey);
+        };
+      }
+      // Firebase compat (only if config provided)
+      if (cfg.firebase && cfg.firebase.apiKey && cfg.firebase.apiKey !== 'YOUR_FIREBASE_API_KEY') {
+        inject('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js');
+        inject('https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js');
+      }
+    })();
+  </script>
+
   <script src="/js/swiper-bundle.min.js"></script>
   <script src="/js/aos.js"></script>
   <script src="/js/photoswipe-lightbox.umd.min.js"></script>
   <script src="/js/photoswipe.umd.min.js"></script>
   <script src="/movie/js/common.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    // Wait for SDK script tags (head-injected, async-by-default) to settle before
+    // initialising features that depend on them. Falls back if a script never loads.
+    function whenReady(testFn, timeoutMs) {
+      return new Promise((resolve) => {
+        const start = Date.now();
+        (function tick() {
+          if (testFn()) return resolve(true);
+          if (Date.now() - start > timeoutMs) return resolve(false);
+          setTimeout(tick, 50);
+        })();
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', async function () {
+      const cfg = window.WEDDING_CONFIG || {};
       const latitude = 37.5590756331876;
       const longitude = 126.967248419049;
-      mapAPI(latitude,longitude);
+
+      // Naver Maps — wait briefly for SDK; mapAPI handles its own fallback when missing.
+      await whenReady(() => window.naver && window.naver.maps, 3000);
+      mapAPI(latitude, longitude);
+
+      // Gallery (Swiper + PhotoSwipe) — local libs, always available.
       galleryImg(4);
-      const swiperGuestBook = new Swiper("#guestbook-messages", {
-        slidesPerView: "auto",
+
+      // Default guestbook swiper (used when Firebase isn't configured; guestBook()
+      // re-initialises Swiper with live data when it is configured).
+      new Swiper('#guestbook-messages', {
+        slidesPerView: 'auto',
         loop: true,
         spaceBetween: 20,
-        autoplay: {
-          delay: 2000,
-          disableOnInteraction: false,
-        },
+        autoplay: { delay: 2000, disableOnInteraction: false },
         speed: 2000,
         centeredSlides: true,
       });
+
+      // RSVP form — wires popup-attend / popup-rsvp + submit to Apps Script.
+      if (cfg.rsvpScriptUrl && cfg.rsvpScriptUrl !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+        rsvpFn(cfg.rsvpScriptUrl);
+      } else {
+        // Local-only mode: still let the popups open so the user can preview the UI.
+        rsvpFn('about:blank');
+      }
+
+      // Firebase guestbook (only when SDK loaded + config supplied)
+      const firebaseReady = await whenReady(() => window.firebase && window.firebase.firestore, 3000);
+      if (firebaseReady && cfg.firebase && cfg.firebase.apiKey !== 'YOUR_FIREBASE_API_KEY') {
+        if (!firebase.apps.length) firebase.initializeApp(cfg.firebase);
+        window.db = firebase.firestore();
+        guestBook(cfg.guestbookCollection || 'guestbook', { adminPassword: cfg.guestbookAdminPassword });
+      }
     });
-    if (window.Kakao) {
-      Kakao.init('081a6ff63832c447fe0099a84980469c');
-      Kakao.isInitialized();
-    }
+
     function sendKakao() {
-      if (!window.Kakao) {
+      if (!window.Kakao || !Kakao.Share) {
         copyCurrentUrl();
         return;
       }
-      Kakao.Share.sendCustom({
-        templateId:121864,
-        templateArgs:{
-          THU:'images/kakao_thumb.jpg',
-          title:'장덕경 💌 엄령주 결혼식에 초대합니다',
-          desc:'2026년 7월 4일 토요일 오후 1시 30분',
-          url:'/movie/pages/templete/index_2026.html'
+      Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '장덕경 💌 엄령주 결혼식에 초대합니다',
+          description: '2026년 7월 4일 토요일 오후 1시 30분 · 약현성당',
+          imageUrl: window.location.origin + '/images/kakao_thumb.jpg',
+          link: {
+            mobileWebUrl: window.location.href,
+            webUrl: window.location.href,
+          },
         },
-        installTalk:true
+        buttons: [
+          {
+            title: '청첩장 열기',
+            link: {
+              mobileWebUrl: window.location.href,
+              webUrl: window.location.href,
+            },
+          },
+        ],
       });
     }
   </script>
-  
+
 </html>

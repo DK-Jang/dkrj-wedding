@@ -1327,6 +1327,9 @@
   .cont-audio.scroll {
     top: 20px;
   }
+  .wrap-top {
+    right: calc(50% - 200px);
+  }
 }
 .pswp--open .pswp__item,
 .pswp--open .pswp__button,
