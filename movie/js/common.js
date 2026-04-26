@@ -285,6 +285,19 @@ function accordionFn() {
   });
 }
 
+// Account accordion (신랑측 / 신부측 expand/collapse)
+function accountAccordion() {
+  document.querySelectorAll(".cont-account .tab-accodian .btn-account").forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const wrap = this.closest(".wrap-account");
+      if (!wrap) return;
+      const opening = !wrap.classList.contains("active");
+      wrap.classList.toggle("active");
+      this.setAttribute("aria-expanded", opening ? "true" : "false");
+    });
+  });
+}
+
 // 공유 이벤트 Share
 function shareFn() {
   if (document.querySelector(".popup-share")) return;
@@ -755,6 +768,7 @@ function guestBook(collection) {
 
 galleryIcoAniWhenReady();
 accountTab();
+accountAccordion();
 guestWrite();
 audioPlay();
 shareFn();
