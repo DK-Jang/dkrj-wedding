@@ -309,3 +309,68 @@
     max-width: calc(100vw - 64px);
   }
 }
+
+/* Account accordion — collapsible 신랑측 / 신부측. Inner card markup keeps original
+   `.inner-tab .inner-box .item-box ...` selectors so cards render as in the template. */
+.cont-account .inner-tab-accordion {
+  margin-top: 60px;
+  padding: 0 22px;
+}
+.cont-account .inner-tab-accordion .inner-box {
+  margin-top: 0;
+}
+.cont-account .acco-side + .acco-side {
+  margin-top: 12px;
+}
+.cont-account .acco-toggle {
+  position: relative;
+  width: 100%;
+  padding: 18px 22px;
+  border: 1px solid #d9d3cc;
+  border-radius: 6px;
+  background: #fff;
+  text-align: left;
+  font-size: 15px;
+  color: #1c1c1c;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  transition: background-color .2s ease, border-radius .2s ease;
+  cursor: pointer;
+}
+.cont-account .acco-toggle::after {
+  content: "";
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin-top: -7px;
+  border-right: 1.5px solid #555;
+  border-bottom: 1.5px solid #555;
+  transform: rotate(45deg);
+  transition: transform .25s ease, margin-top .25s ease;
+}
+.cont-account .acco-side.active .acco-toggle {
+  background: #f6f1eb;
+  border-radius: 6px 6px 0 0;
+}
+.cont-account .acco-side.active .acco-toggle::after {
+  transform: rotate(-135deg);
+  margin-top: -3px;
+}
+.cont-account .acco-panel {
+  display: none;
+  border: 1px solid #d9d3cc;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  background: #fff;
+  padding: 18px 22px 22px;
+}
+.cont-account .acco-side.active .acco-panel {
+  display: block;
+}
+.cont-account .acco-panel .group-account + .group-account {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid #ece6dd;
+}

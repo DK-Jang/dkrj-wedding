@@ -287,12 +287,12 @@ function accordionFn() {
 
 // Account accordion (신랑측 / 신부측 expand/collapse)
 function accountAccordion() {
-  document.querySelectorAll(".cont-account .tab-accodian .btn-account").forEach((btn) => {
+  document.querySelectorAll(".cont-account .acco-toggle").forEach((btn) => {
     btn.addEventListener("click", function () {
-      const wrap = this.closest(".wrap-account");
-      if (!wrap) return;
-      const opening = !wrap.classList.contains("active");
-      wrap.classList.toggle("active");
+      const side = this.closest(".acco-side");
+      if (!side) return;
+      const opening = !side.classList.contains("active");
+      side.classList.toggle("active");
       this.setAttribute("aria-expanded", opening ? "true" : "false");
     });
   });
