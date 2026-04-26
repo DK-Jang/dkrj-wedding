@@ -293,7 +293,7 @@ div.pswp__img--placeholder,
   width: 40px;
   height: 40px;
   margin: 10px 10px 0 0;
-  background:url(https://repocu.kr/assets/images/common/btn_close_40_w.png) 0/100% no-repeat;
+  background:url(../assets/images/common/btn_close_40_w.png) 0/100% no-repeat;
 }
 .pswp__button--close svg{
   display: none;

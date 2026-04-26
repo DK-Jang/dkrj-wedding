@@ -24,7 +24,7 @@ html, body {
   display: inline-block;
   width: 18px;
   height: 10px;
-  background: url(https://repocu.kr/assets/images/common/ico_arrow_up.png) 0/100% no-repeat;
+  background: url(../assets/images/common/ico_arrow_up.png) 0/100% no-repeat;
   content: "";
 }
 .wrap-top .btn-top {
@@ -90,7 +90,7 @@ html, body {
   width: 24px;
   height: 24px;
   margin-left: 10px;
-  background: url(https://repocu.kr/assets/images/common/btn_tel.png) 0/100% no-repeat;
+  background: url(../assets/images/common/btn_tel.png) 0/100% no-repeat;
 }
 .inner-tab .inner-box .item-box .left-item {
   display: flex;
@@ -110,11 +110,11 @@ html, body {
 }
 .inner-tab .inner-box .item-box .btn-item.btn-acconut {
   margin-left: 6px;
-  background-image: url(https://repocu.kr/assets/images/common/btn_account.png);
+  background-image: url(../assets/images/common/btn_account.png);
 }
 .inner-tab .inner-box .item-box .btn-item.btn-kakaopay {
   width: 50px;
-  background-image: url(https://repocu.kr/assets/images/common/btn_kakaopay.png);
+  background-image: url(../assets/images/common/btn_kakaopay.png);
 }
 .inner-tab .inner-box .img-thumb {
   display: block;
@@ -159,7 +159,7 @@ html, body {
   width: 30px;
   height: 30px;
   font-size: 0;
-  background: url(https://repocu.kr/assets/images/common/ic_copy_16.png) center/16px no-repeat;
+  background: url(../movie/images/ic_copy_16.png) center/16px no-repeat;
 }
 
 /* swiper-info */
@@ -249,12 +249,12 @@ html, body {
   display: inline-block;
   width: 20px;
   height: 20px;
-  background-image: url(https://repocu.kr/assets/images/common/ico_sound.png);
+  background-image: url(../assets/images/common/ico_sound.png);
   background-size: 20px;
   background-repeat: no-repeat;
 }
 .cont-audio .btn-audio .ico-sound.ico-muted {
-  background-image: url(https://repocu.kr/assets/images/common/ico_sound_mute.png);
+  background-image: url(../assets/images/common/ico_sound_mute.png);
 }
 
 .cont-location .box-way {

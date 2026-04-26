@@ -831,29 +831,6 @@
 .cont-account {
   margin-top: 130px;
 }
-.cont-account.account-typeb .inner-box .group-account {
-  position: relative;
-}
-.cont-account.account-typeb .inner-box .group-account .item-profile {
-  max-width: calc(100% - 70px);
-}
-.cont-account.account-typeb .inner-box .group-account .item-account {
-  position: absolute;
-  right: 20px;
-  top: 17px;
-  width: auto;
-  margin: 0;
-  padding: 0;
-  background: transparent;
-}
-.cont-account.account-typeb .inner-box .group-account .item-account .txt-account {
-  font-size: 0;
-}
-.cont-account.account-typeb .inner-box .group-account .item-account .btn-item {
-  width: 65px;
-  height: 30px;
-  background: url(../images/btn_copy_typeb.png) 0/contain no-repeat;
-}
 .cont-account .txt-info {
   display: block;
   margin-top: 30px;

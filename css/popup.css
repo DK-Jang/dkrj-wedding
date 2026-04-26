@@ -105,7 +105,7 @@
   height: 40px;
   font-size: 0;
   cursor: pointer;
-  background: url("https://repocu.kr/assets/images/common/btn_close_40.png") 0/100% no-repeat;
+  background: url("../assets/images/common/btn_close_40.png") 0/100% no-repeat;
 }
 
 /* popup-share */
@@ -147,10 +147,10 @@
   background-size: 100%;
 }
 .popup .list-share .ico-kakao{
-  background-image: url(https://repocu.kr/assets/images/common/ico_kakao_60.png);
+  background-image: url(../assets/images/common/ico_kakao_60.png);
 }
 .popup .list-share .ico-copy{
-  background-image: url(https://repocu.kr/assets/images/common/ico_url_60.png);
+  background-image: url(../assets/images/common/ico_url_60.png);
 }
 
 /* popup-rsvp */
@@ -259,7 +259,7 @@
   display: inline-block;
   width:13px;
   height:20px;
-  background:url(https://repocu.kr/assets/images/common/&.png) 0/100% no-repeat;
+  background:url(../assets/images/common/and_divider.png) 0/100% no-repeat;
 }
 .popup-attend .group-couple .txt-badge{
   display: block;
@@ -288,10 +288,10 @@
   margin-top:4px;
 }
 .popup-attend .group-info .txt-day:before{
-  background-image: url(https://repocu.kr/assets/images/common/ic_calendar_14.png);
+  background-image: url(../movie/images/ic_calendar_14.png);
 }
 .popup-attend .group-info .txt-place:before{
-  background-image: url(https://repocu.kr/assets/images/common/ic_place_14.png);
+  background-image: url(../movie/images/ic_place_14.png);
 }
 .popup-attend .btn-apply.btn-submit{
   position: absolute;
