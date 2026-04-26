@@ -9,4 +9,7 @@ Commercial use OK, attribution not required for personal/wedding use.
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+  /* Glyphs read smaller than the px value would suggest — scale up at the font-face level
+     so existing px sizes render larger visually, without affecting other fonts (영문 Montserrat 등). */
+  size-adjust: 115%;
 }
