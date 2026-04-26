@@ -1,9 +1,0 @@
-/*
-Pretendard — official Korean web font.
-https://github.com/orioncactus/pretendard (SIL Open Font License 1.1)
-
-We use the maintainer's jsdelivr CDN bundle, which sends correct CORS headers and
-auto-subsets per browser. Falls back to system fonts via the body font stack if the
-CDN is unreachable.
-*/
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css");

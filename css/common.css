@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Forum&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Tilt+Neon&display=swap');
-@import url(../assets/fonts/pretendard.css);
+@import url(../assets/fonts/cafe24.css);
 /* @import url(../assets/fonts/montserrat.css); */
 @import url(../assets/fonts/mordenmono.css);
 @import url(aos.css);
@@ -100,8 +100,8 @@ video,
   font-weight: normal;
   vertical-align: baseline;
   box-sizing: border-box;
-  font-family: "Pretendard";
-  font-weight: 300;
+  font-family: "Cafe24Oneprettynight", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-weight: 400;
   font-size:100%;
 }
 article,

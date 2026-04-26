@@ -1,0 +1,12 @@
+/*
+Cafe24 Oneprettynight — Korean display font.
+Distributed by Noonnu (https://noonnu.cc/font_page/12) via jsDelivr.
+Commercial use OK, attribution not required for personal/wedding use.
+*/
+@font-face {
+  font-family: 'Cafe24Oneprettynight';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
