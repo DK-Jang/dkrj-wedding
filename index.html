@@ -565,16 +565,21 @@
           if (window.Kakao && !Kakao.isInitialized()) Kakao.init(cfg.kakaoJsKey);
         };
       }
-      // Firebase compat (only if config provided)
+      // Firebase compat — firestore-compat depends on firebase-app-compat being fully
+      // evaluated first. Dynamic <script> elements default to async, which doesn't
+      // preserve order, so chain via onload to avoid a race that surfaces as
+      // "Cannot read properties of undefined (reading 'INTERNAL')".
       if (cfg.firebase && cfg.firebase.apiKey && cfg.firebase.apiKey !== 'YOUR_FIREBASE_API_KEY') {
-        inject('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js', {
+        const app = inject('https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js', {
           integrity: 'sha384-ajMUFBUFMCyjh8uxJg6bkGcKe9RTolyjwbxB3yES0QQMenP3Oztj/W9vA2SJPcIh',
           crossOrigin: 'anonymous',
         });
-        inject('https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js', {
-          integrity: 'sha384-XMIl1b2Ez9tKAM0R5q67/iLdfnlLBl9kfo40X5WMtCPb+3OLplrjnOxZTYCg1SKY',
-          crossOrigin: 'anonymous',
-        });
+        app.onload = function () {
+          inject('https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js', {
+            integrity: 'sha384-XMIl1b2Ez9tKAM0R5q67/iLdfnlLBl9kfo40X5WMtCPb+3OLplrjnOxZTYCg1SKY',
+            crossOrigin: 'anonymous',
+          });
+        };
       }
     })();
   </script>
