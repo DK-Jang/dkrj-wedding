@@ -374,3 +374,57 @@
   padding-top: 18px;
   border-top: 1px solid #ece6dd;
 }
+
+/* Wedding-day month calendar — sits under the OUR DAY countdown.
+   Tone matches the rest of the site: beige #8e7c65 accents, dark gray text. */
+.cont-calendar .cont-monthcal {
+  margin: 50px auto 0;
+  max-width: 320px;
+  padding: 0 22px;
+}
+.cont-calendar .cont-monthcal .tit-month {
+  display: block;
+  margin-bottom: 24px;
+  text-align: center;
+  font-family: "Montserrat", "Cafe24Oneprettynight", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #8e7c65;
+  letter-spacing: 0.5px;
+}
+.cont-calendar .cont-monthcal .cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  row-gap: 16px;
+  text-align: center;
+  font-family: "Montserrat", "Cafe24Oneprettynight", sans-serif;
+  font-size: 14px;
+  color: #545151;
+}
+.cont-calendar .cont-monthcal .cal-grid > span {
+  line-height: 28px;
+}
+.cont-calendar .cont-monthcal .cal-head {
+  font-size: 13px;
+  font-weight: 500;
+  color: #8e7c65;
+  padding-bottom: 4px;
+}
+.cont-calendar .cont-monthcal .cal-head.cal-sun,
+.cont-calendar .cont-monthcal .cal-day.cal-sun-num {
+  color: #b85655;
+}
+.cont-calendar .cont-monthcal .cal-head.cal-sat {
+  color: #8e7c65;
+}
+.cont-calendar .cont-monthcal .cal-target {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #8e7c65;
+  color: #fff;
+  font-weight: 500;
+}
