@@ -215,7 +215,7 @@
                       <span class="txt-name">장덕경</span>
                     </div>
                     <div class="right-item">
-                      <a class="btn-item btn-kakaopay" href="#none" onClick="alert('계좌번호를 복사해 이용해 주세요')">안내</a>
+                      <a class="btn-item btn-kakaopay" href="#none" data-pay-side="groom">pay</a>
                     </div>
                   </div>
                   <div class="item-account">
@@ -235,7 +235,7 @@
                       <span class="txt-name">엄령주</span>
                     </div>
                     <div class="right-item">
-                      <a class="btn-item btn-kakaopay" href="#none" onClick="alert('계좌번호를 복사해 이용해 주세요')">안내</a>
+                      <a class="btn-item btn-kakaopay" href="#none" data-pay-side="bride">pay</a>
                     </div>
                   </div>
                   <div class="item-account">
@@ -636,6 +636,23 @@
         window.db = firebase.firestore();
         guestBook(cfg.guestbookCollection || 'guestbook');
       }
+
+      // KakaoPay deep links — wire each pay button to its configured 송금링크.
+      // Falls back to a friendly alert when no link is configured.
+      document.querySelectorAll('.btn-kakaopay[data-pay-side]').forEach((btn) => {
+        const side = btn.getAttribute('data-pay-side');
+        const link = (cfg.kakaoPayLinks || {})[side] || '';
+        if (link) {
+          btn.setAttribute('href', link);
+          btn.setAttribute('target', '_blank');
+          btn.setAttribute('rel', 'noopener noreferrer');
+        } else {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('카카오페이 송금링크가 아직 등록되지 않았습니다.\n계좌번호를 복사해 이용해 주세요.');
+          });
+        }
+      });
     });
 
     function sendKakao() {

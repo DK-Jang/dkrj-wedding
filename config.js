@@ -31,4 +31,13 @@ window.WEDDING_CONFIG = {
   guestbookCollection: "guestbook",
   // Guestbook entries are operator-deleted only (Firebase Console).
   // No client-side admin password — keeping secrets out of the public bundle.
+
+  // 5) KakaoPay 송금링크 (선택)
+  //    카카오페이 앱 > 송금 > 받기 > "송금받기 링크 공유" 에서 생성된 URL 을 그대로 붙여넣기.
+  //    형식 예: "https://qr.kakaopay.com/Ej8xxxxxxxxx" 또는 "https://link.kakaopay.com/_xxxxxxxx".
+  //    값이 비어있으면 pay 버튼은 안내 alert 로 fallback 됩니다.
+  kakaoPayLinks: {
+    groom: "",
+    bride: "",
+  },
 };
