@@ -396,13 +396,20 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   row-gap: 16px;
+  column-gap: 0;
   text-align: center;
   font-family: "Montserrat", "Cafe24Oneprettynight", sans-serif;
   font-size: 14px;
   color: #545151;
 }
+/* Every cell — including the highlighted one — is a flex box so its content
+   centers vertically and horizontally regardless of viewport / mobile engine. */
 .cont-calendar .cont-monthcal .cal-grid > span {
-  line-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  line-height: 1;
 }
 .cont-calendar .cont-monthcal .cal-head {
   font-size: 13px;
@@ -418,13 +425,13 @@
   color: #8e7c65;
 }
 .cont-calendar .cont-monthcal .cal-target {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   width: 28px;
   height: 28px;
   border-radius: 50%;
   background: #8e7c65;
   color: #fff;
   font-weight: 500;
+  /* Override the larger min-height so the circle stays a circle on small screens. */
+  min-height: 28px;
+  flex: 0 0 auto;
 }
