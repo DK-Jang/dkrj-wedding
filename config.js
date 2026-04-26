@@ -37,7 +37,7 @@ window.WEDDING_CONFIG = {
   //    형식 예: "https://qr.kakaopay.com/Ej8xxxxxxxxx" 또는 "https://link.kakaopay.com/_xxxxxxxx".
   //    값이 비어있으면 pay 버튼은 안내 alert 로 fallback 됩니다.
   kakaoPayLinks: {
-    groom: "",
-    bride: "",
+    groom: "https://qr.kakaopay.com/Ej7nkavi0",
+    bride: "https://qr.kakaopay.com/Ej7qS12QD",
   },
 };
