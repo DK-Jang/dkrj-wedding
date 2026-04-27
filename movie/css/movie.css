@@ -1391,4 +1391,15 @@
   background-position: center;
 }
 
+/* SPECIAL block uses a longer English label ("GROOM'S TWIN BROTHER") than the
+   parent cast labels, so widen the left column and keep both languages on one
+   line. Scoped to cast-box2 so the family-credits column stays untouched. */
+.cont-footer .cast-box.cast-box2 .inner-info {
+  width: 160px;
+}
+.cont-footer .cast-box.cast-box2 .inner-info .txt-info,
+.cont-footer .cast-box.cast-box2 .inner-info .tit-info {
+  white-space: nowrap;
+}
+
 /*# sourceMappingURL=movie.css.map */
