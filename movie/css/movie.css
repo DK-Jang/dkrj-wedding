@@ -1391,6 +1391,21 @@
   background-position: center;
 }
 
+/* The cover photo is a light wedding dress, so the default white name labels
+   wash out and the block sat right on the bottom safe-area boundary. Lift
+   them ~50px and recolor the names + bride/groom mark to dark for contrast. */
+.cont-cover.cont-cover2 .content-head {
+  bottom: 210px;
+  color: #191919;
+}
+.cont-cover.cont-cover2 .content-head .name-box img {
+  filter: brightness(0);
+  opacity: 0.85;
+}
+.cont-cover.cont-cover2 .content-head .name-box .tit-name {
+  color: #191919;
+}
+
 /* SPECIAL block uses a longer English label ("GROOM'S TWIN BROTHER") than the
    parent cast labels, so widen the left column and keep both languages on one
    line. Scoped to cast-box2 so the family-credits column stays untouched. */
