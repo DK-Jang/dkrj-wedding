@@ -1395,7 +1395,7 @@
    wash out and the block sat right on the bottom safe-area boundary. Lift
    them ~50px and recolor the names + bride/groom mark to dark for contrast. */
 .cont-cover.cont-cover2 .content-head {
-  bottom: 210px;
+  bottom: 150px;
   color: #191919;
 }
 .cont-cover.cont-cover2 .content-head .name-box img {
