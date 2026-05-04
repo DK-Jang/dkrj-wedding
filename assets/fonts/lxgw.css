@@ -1,0 +1,26 @@
+/*
+LXGW WenKai Mono KR (LXGW문해모노) — Korean monospace serif/Kai font.
+Distributed by Noonnu (https://noonnu.cc/font_page/1814) via jsDelivr.
+Free for personal and commercial use.
+*/
+@font-face {
+  font-family: 'LXGWWenKaiMonoKR';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2604-1@1.1/LXGWWenKaiMonoKR-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LXGWWenKaiMonoKR';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2604-1@1.1/LXGWWenKaiMonoKR-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LXGWWenKaiMonoKR';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2604-1@1.1/LXGWWenKaiMonoKR-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}

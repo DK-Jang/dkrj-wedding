@@ -164,7 +164,7 @@
   padding-bottom: 30px;
 }
 .popup-rsvp .inner-form .tit-g{
-  font-family: 'HSHwalkongSerif-Regular', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-family: 'LXGWWenKaiMonoKR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
 }
 .popup-rsvp #rsvpForm{
   display: flex;
@@ -233,13 +233,13 @@
 /* 참석 정보 */
 .popup-attend .inner-form .tit-g{
   margin:30px 0 12px;
-  font-family: 'HSHwalkongSerif-Regular', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-family: 'LXGWWenKaiMonoKR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
   font-size:22px;
   line-height:30px;
 }
 .popup-attend .inner-form .txt-attend-desc{
   margin: 0 0 8px;
-  font-family: 'HSHwalkongSerif-Regular', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-family: 'LXGWWenKaiMonoKR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
   font-size: 14px;
   line-height: 22px;
   color: #545151;
@@ -393,7 +393,7 @@
   display: block;
   margin-bottom: 24px;
   text-align: center;
-  font-family: "Montserrat", "HSHwalkongSerif-Regular", sans-serif;
+  font-family: "Montserrat", "LXGWWenKaiMonoKR", sans-serif;
   font-size: 18px;
   font-weight: 500;
   color: #8e7c65;
@@ -405,7 +405,7 @@
   row-gap: 16px;
   column-gap: 0;
   text-align: center;
-  font-family: "Montserrat", "HSHwalkongSerif-Regular", sans-serif;
+  font-family: "Montserrat", "LXGWWenKaiMonoKR", sans-serif;
   font-size: 14px;
   color: #545151;
 }
