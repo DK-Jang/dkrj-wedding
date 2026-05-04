@@ -1,0 +1,12 @@
+/*
+HS활공명조 (HSHwalkongSerif) — Korean serif/Myeongjo display font.
+Designed by 토끼네활자공장, distributed by Noonnu (https://noonnu.cc/font_page/1802)
+via jsDelivr. Free for personal and commercial use.
+*/
+@font-face {
+  font-family: 'HSHwalkongSerif-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2604-1@1.0/HSHwalkongSerif-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
