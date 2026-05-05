@@ -292,6 +292,10 @@
   position: relative;
   margin-top: -1px;
   padding-top: 50px;
+  /* Compensate for the now-absolute :after gradient: keeps the closing
+     message clear of the rotated bottom filmstrip (which sits at
+     bottom: -57px relative to cont-invite). */
+  padding-bottom: 120px;
   background-color: #070c0d;
 }
 .cont-invite:after {
