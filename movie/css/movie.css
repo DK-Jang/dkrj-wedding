@@ -915,6 +915,10 @@
 
 .cont-guestbook {
   margin-top: 130px;
+  /* New stacking context so the section's content (incl. 방명록 작성하기 button)
+     stays above .cont-footer:before, which extends 160px upward into this area. */
+  position: relative;
+  z-index: 1;
 }
 .cont-guestbook .inner-book {
   margin-top: 60px;
@@ -1403,7 +1407,7 @@
    wash out and the block sat right on the bottom safe-area boundary. Lift
    them ~50px and recolor the names + bride/groom mark to dark for contrast. */
 .cont-cover.cont-cover2 .content-head {
-  bottom: 150px;
+  bottom: 180px;
   color: #191919;
 }
 .cont-cover.cont-cover2 .content-head .name-box img {
