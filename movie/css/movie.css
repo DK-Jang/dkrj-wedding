@@ -297,14 +297,17 @@
 .cont-invite:after {
   position: absolute;
   left: 0;
-  bottom: -80px;
+  bottom: -160px;
   display: block;
   width: 100%;
-  height: 80px;
+  height: 160px;
+  /* Fade more gradually so the cream below blends in over a longer run.
+     z-index: 0 keeps the filmstrip (img-film2, z-index: 1) on top of the
+     gradient so the strip isn't covered by the dark overlay. */
   background: linear-gradient(to bottom, #070c0d 0%, rgba(7, 12, 13, 0) 100%);
   content: "";
   pointer-events: none;
-  z-index: 2;
+  z-index: 0;
 }
 .cont-invite .img-film {
   overflow: hidden;
@@ -1011,14 +1014,14 @@
 .cont-footer:before {
   position: absolute;
   left: 0;
-  top: -80px;
+  top: -160px;
   display: block;
   width: 100%;
-  height: 80px;
+  height: 160px;
   background: linear-gradient(to top, #080c0d 0%, rgba(8, 12, 13, 0) 100%);
   content: "";
   pointer-events: none;
-  z-index: 2;
+  z-index: 0;
 }
 .cont-footer:after {
   display: block;
