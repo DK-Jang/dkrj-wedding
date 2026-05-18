@@ -126,6 +126,29 @@ function audioPlay() {
   })
 }
 
+function syncBgmWithVideo() {
+  const audio = $("#bgm");
+  const videos = document.querySelectorAll(".wedding-video");
+  if (!audio || videos.length === 0) return;
+
+  videos.forEach((video) => {
+    video.addEventListener("play", () => {
+      const shouldResumeBgm = !audio.paused && !audio.muted;
+      video.dataset.resumeBgm = shouldResumeBgm ? "true" : "false";
+      if (shouldResumeBgm) audio.pause();
+    });
+
+    const resumeBgm = () => {
+      if (video.dataset.resumeBgm !== "true" || audio.muted) return;
+      audio.play().catch(() => {});
+      video.dataset.resumeBgm = "false";
+    };
+
+    video.addEventListener("pause", resumeBgm);
+    video.addEventListener("ended", resumeBgm);
+  });
+}
+
 //PhotoGallery
 function galleryIcoAniWhenReady() {
   const observer = new MutationObserver((mutations, obs) => {
@@ -771,6 +794,7 @@ accountTab();
 accountAccordion();
 guestWrite();
 audioPlay();
+syncBgmWithVideo();
 shareFn();
 document.addEventListener("DOMContentLoaded", function () {
   handleClickTop();
