@@ -624,7 +624,7 @@
 
 .cont-video {
   margin-top: 130px;
-  padding: 0 16px;
+  padding: 0 8px;
 }
 .cont-video .tit-g {
   margin-top: 0;
@@ -635,24 +635,30 @@
 }
 .cont-video .video-frame {
   position: relative;
-  padding: 52px 14px 18px;
+  padding-top: 42px;
+  border-radius: 20px;
+  box-shadow: 0 18px 45px rgba(58, 45, 45, 0.18);
 }
-.cont-video .video-slate-frame {
+.cont-video .video-frame:before {
   position: absolute;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: 0;
   z-index: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+  height: 42px;
+  border-radius: 20px 20px 0 0;
+  background:
+    radial-gradient(circle at 22px 22px, rgba(255, 255, 255, 0.82) 0 7px, transparent 8px),
+    repeating-linear-gradient(108deg, #202020 0 42px, #f8f4ec 42px 78px);
+  content: "";
 }
 .cont-video .inner-video {
   position: relative;
   z-index: 1;
   overflow: hidden;
   width: 100%;
-  border-radius: 6px;
+  border-radius: 0 0 16px 16px;
   background: #111;
-  box-shadow: 0 18px 45px rgba(58, 45, 45, 0.18);
 }
 .cont-video .video-slide {
   position: absolute;
@@ -727,12 +733,11 @@
 }
 .cont-video .video-slide.playing .btn-video-play:before {
   left: 10px;
-  top: 8px;
-  width: 3px;
-  height: 14px;
+  top: 10px;
+  width: 10px;
+  height: 10px;
   border: 0;
-  border-left: 4px solid #fff;
-  border-right: 4px solid #fff;
+  background: #fff;
 }
 .cont-video .video-time {
   font-family: "Montserrat";
