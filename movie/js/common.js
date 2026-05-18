@@ -149,6 +149,205 @@ function syncBgmWithVideo() {
   });
 }
 
+function videoControls() {
+  const formatTime = (seconds) => {
+    if (!Number.isFinite(seconds)) return "0:00";
+    const minutes = Math.floor(seconds / 60);
+    const rest = Math.floor(seconds % 60);
+    return `${minutes}:${String(rest).padStart(2, "0")}`;
+  };
+
+  document.querySelectorAll("[data-video-slide]").forEach((slide) => {
+    const video = slide.querySelector(".wedding-video");
+    const carousel = slide.closest("[data-video-carousel]");
+    const playButton = slide.querySelector(".btn-video-play");
+    const scrubber = slide.querySelector(".video-scrubber");
+    const current = slide.querySelector(".video-current");
+    const duration = slide.querySelector(".video-duration");
+    if (!video || !playButton || !scrubber || !current || !duration) return;
+
+    const updateProgress = () => {
+      const videoDuration = Number.isFinite(video.duration) ? video.duration : 0;
+      const percent = videoDuration ? (video.currentTime / videoDuration) * 100 : 0;
+      scrubber.style.setProperty("--video-progress", `${Math.min(Math.max(percent, 0), 100)}%`);
+      scrubber.value = String(Math.round(percent * 10));
+      current.textContent = formatTime(video.currentTime);
+      duration.textContent = formatTime(videoDuration);
+    };
+
+    const seekToScrubberValue = () => {
+      const videoDuration = Number.isFinite(video.duration) ? video.duration : 0;
+      if (!videoDuration) return;
+      video.currentTime = (Number(scrubber.value) / Number(scrubber.max)) * videoDuration;
+      updateProgress();
+    };
+
+    const seekByClientX = (clientX) => {
+      const rect = scrubber.getBoundingClientRect();
+      const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
+      scrubber.value = String(Math.round((x / rect.width) * Number(scrubber.max)));
+      seekToScrubberValue();
+    };
+
+    const toggleVideo = () => {
+      if (video.paused) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    };
+
+    playButton.addEventListener("click", toggleVideo);
+    video.addEventListener("click", toggleVideo);
+
+    scrubber.addEventListener("input", seekToScrubberValue);
+    scrubber.addEventListener("change", seekToScrubberValue);
+
+    let isScrubbing = false;
+    const stopScrubbing = () => {
+      isScrubbing = false;
+    };
+
+    scrubber.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      isScrubbing = true;
+      scrubber.setPointerCapture?.(event.pointerId);
+      seekByClientX(event.clientX);
+    });
+    scrubber.addEventListener("pointermove", (event) => {
+      if (!isScrubbing) return;
+      event.preventDefault();
+      seekByClientX(event.clientX);
+    });
+    scrubber.addEventListener("pointerup", stopScrubbing);
+    scrubber.addEventListener("pointercancel", stopScrubbing);
+
+    scrubber.addEventListener("mousedown", (event) => {
+      event.preventDefault();
+      isScrubbing = true;
+      seekByClientX(event.clientX);
+    });
+    document.addEventListener("mousemove", (event) => {
+      if (!isScrubbing) return;
+      event.preventDefault();
+      seekByClientX(event.clientX);
+    });
+    document.addEventListener("mouseup", stopScrubbing);
+
+    scrubber.addEventListener("touchstart", (event) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      event.preventDefault();
+      isScrubbing = true;
+      seekByClientX(touch.clientX);
+    }, { passive: false });
+    scrubber.addEventListener("touchmove", (event) => {
+      if (!isScrubbing) return;
+      const touch = event.touches[0];
+      if (!touch) return;
+      event.preventDefault();
+      seekByClientX(touch.clientX);
+    }, { passive: false });
+    scrubber.addEventListener("touchend", stopScrubbing);
+    scrubber.addEventListener("touchcancel", stopScrubbing);
+
+    scrubber.addEventListener("keydown", (event) => {
+      const videoDuration = Number.isFinite(video.duration) ? video.duration : 0;
+      if (!videoDuration) return;
+      const step = event.shiftKey ? 10 : 5;
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        video.currentTime = Math.max(video.currentTime - step, 0);
+        updateProgress();
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        video.currentTime = Math.min(video.currentTime + step, videoDuration);
+        updateProgress();
+      }
+    });
+
+    video.addEventListener("loadedmetadata", updateProgress);
+    video.addEventListener("timeupdate", updateProgress);
+    video.addEventListener("durationchange", updateProgress);
+    video.addEventListener("play", () => {
+      slide.classList.add("playing");
+      carousel?.classList.add("is-playing");
+    });
+    video.addEventListener("pause", () => {
+      slide.classList.remove("playing");
+      if (!carousel?.querySelector(".video-slide.playing")) {
+        carousel?.classList.remove("is-playing");
+      }
+    });
+    video.addEventListener("ended", () => {
+      slide.classList.remove("playing");
+      if (!carousel?.querySelector(".video-slide.playing")) {
+        carousel?.classList.remove("is-playing");
+      }
+    });
+    updateProgress();
+  });
+}
+
+function videoCarousel() {
+  document.querySelectorAll("[data-video-carousel]").forEach((carousel) => {
+    const slides = Array.from(carousel.querySelectorAll("[data-video-slide]"));
+    const prevButton = carousel.querySelector(".btn-video-prev");
+    const nextButton = carousel.querySelector(".btn-video-next");
+    const count = carousel.querySelector(".video-count");
+    if (slides.length <= 1 || !prevButton || !nextButton) return;
+
+    let activeIndex = slides.findIndex((slide) => slide.classList.contains("active"));
+    if (activeIndex < 0) activeIndex = 0;
+
+    const pauseSlideVideo = (slide) => {
+      const video = slide.querySelector("video");
+      if (video && !video.paused) video.pause();
+    };
+
+    const setPositions = (direction = 0) => {
+      slides.forEach((slide, index) => {
+        slide.classList.remove("active", "prev", "next", "hidden");
+
+        if (index === activeIndex) {
+          slide.classList.add("active");
+          return;
+        }
+
+        if (slides.length === 2) {
+          if (direction === 0) {
+            slide.classList.add(index > activeIndex ? "next" : "prev");
+          } else {
+            slide.classList.add(direction > 0 ? "prev" : "next");
+          }
+          return;
+        }
+
+        if (index === (activeIndex - 1 + slides.length) % slides.length) {
+          slide.classList.add("prev");
+        } else if (index === (activeIndex + 1) % slides.length) {
+          slide.classList.add("next");
+        } else {
+          slide.classList.add("hidden");
+        }
+      });
+
+      if (count) count.textContent = `${activeIndex + 1} / ${slides.length}`;
+    };
+
+    const update = (nextIndex, direction) => {
+      pauseSlideVideo(slides[activeIndex]);
+      activeIndex = (nextIndex + slides.length) % slides.length;
+      setPositions(direction);
+    };
+
+    prevButton.addEventListener("click", () => update(activeIndex - 1, -1));
+    nextButton.addEventListener("click", () => update(activeIndex + 1, 1));
+    setPositions();
+  });
+}
+
 //PhotoGallery
 function galleryIcoAniWhenReady() {
   const observer = new MutationObserver((mutations, obs) => {
@@ -794,6 +993,8 @@ accountTab();
 accountAccordion();
 guestWrite();
 audioPlay();
+videoControls();
+videoCarousel();
 syncBgmWithVideo();
 shareFn();
 document.addEventListener("DOMContentLoaded", function () {

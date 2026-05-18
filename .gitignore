@@ -10,3 +10,7 @@
 
 # Local-only docs (kept on disk for reference, never pushed)
 README.md
+
+# Original video sources are kept locally; deploy uses compressed H.264 copies.
+videos/0427.mp4
+videos/0516.mp4

@@ -191,11 +191,39 @@
       <!-- Video -->
       <div class="cont-video" data-aos="fade-up">
         <strong class="tit-g">MOVIE</strong>
-        <div class="inner-video">
-          <video class="wedding-video" controls playsinline preload="metadata" poster="images/video_0516_poster.jpg">
-            <source src="videos/0516-h264.mp4" type="video/mp4">
-            브라우저가 비디오를 지원하지 않습니다.
-          </video>
+        <div class="video-carousel" data-video-carousel>
+          <div class="video-frame">
+            <img class="video-slate-frame" src="movie/images/video_slate_frame.svg" alt="" aria-hidden="true">
+            <div class="inner-video">
+              <div class="video-slide active" data-video-slide>
+                <video class="wedding-video" playsinline preload="auto" poster="images/video_0516_poster.jpg">
+                  <source src="videos/0516-h264.mp4" type="video/mp4">
+                  브라우저가 비디오를 지원하지 않습니다.
+                </video>
+                <div class="video-controls">
+                  <button class="btn-video-play" type="button" aria-label="영상 재생"></button>
+                  <span class="video-time video-current">0:00</span>
+                  <input class="video-scrubber" type="range" min="0" max="1000" value="0" step="1" aria-label="영상 진행바">
+                  <span class="video-time video-duration">0:00</span>
+                </div>
+              </div>
+              <div class="video-slide next" data-video-slide>
+                <video class="wedding-video" playsinline preload="auto" poster="images/video_0427_poster.jpg">
+                  <source src="videos/0427-h264.mp4" type="video/mp4">
+                  브라우저가 비디오를 지원하지 않습니다.
+                </video>
+                <div class="video-controls">
+                  <button class="btn-video-play" type="button" aria-label="영상 재생"></button>
+                  <span class="video-time video-current">0:00</span>
+                  <input class="video-scrubber" type="range" min="0" max="1000" value="0" step="1" aria-label="영상 진행바">
+                  <span class="video-time video-duration">0:00</span>
+                </div>
+              </div>
+              <button class="btn-video-nav btn-video-prev" type="button" aria-label="이전 영상"></button>
+              <button class="btn-video-nav btn-video-next" type="button" aria-label="다음 영상"></button>
+            </div>
+          </div>
+          <span class="video-count" aria-live="polite">1 / 2</span>
         </div>
       </div>
       <!-- Location -->
