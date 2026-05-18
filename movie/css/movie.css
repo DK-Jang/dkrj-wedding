@@ -702,6 +702,9 @@
   height: 38px;
   padding: 0 10px;
   background: rgba(17, 17, 17, 0.96);
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 .cont-video .btn-video-play {
   position: relative;
@@ -827,7 +830,12 @@
   color: #8e7c65;
   letter-spacing: 0;
 }
-.cont-video .video-carousel.is-playing .btn-video-nav {
+.cont-video .video-carousel.is-playing:not(.is-controls-visible) .video-controls {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+}
+.cont-video .video-carousel.is-playing:not(.is-controls-visible) .btn-video-nav {
   opacity: 0;
   pointer-events: none;
   transform: translateY(-50%) scale(0.92);

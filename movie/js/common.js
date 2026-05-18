@@ -166,6 +166,34 @@ function videoControls() {
     const duration = slide.querySelector(".video-duration");
     if (!video || !playButton || !scrubber || !current || !duration) return;
 
+    let controlsTimer = null;
+
+    const showControls = () => {
+      if (!carousel) return;
+      carousel.classList.add("is-controls-visible");
+
+      if (controlsTimer) {
+        clearTimeout(controlsTimer);
+        controlsTimer = null;
+      }
+
+      if (!video.paused && !video.ended) {
+        controlsTimer = setTimeout(() => {
+          carousel.classList.remove("is-controls-visible");
+          controlsTimer = null;
+        }, 2200);
+      }
+    };
+
+    const keepControlsVisible = () => {
+      if (!carousel) return;
+      if (controlsTimer) {
+        clearTimeout(controlsTimer);
+        controlsTimer = null;
+      }
+      carousel.classList.add("is-controls-visible");
+    };
+
     const updateProgress = () => {
       const videoDuration = Number.isFinite(video.duration) ? video.duration : 0;
       const percent = videoDuration ? (video.currentTime / videoDuration) * 100 : 0;
@@ -190,6 +218,7 @@ function videoControls() {
     };
 
     const toggleVideo = () => {
+      showControls();
       if (video.paused) {
         video.play().catch(() => {});
       } else {
@@ -197,8 +226,26 @@ function videoControls() {
       }
     };
 
+    let revealOnlyTap = false;
+
     playButton.addEventListener("click", toggleVideo);
-    video.addEventListener("click", toggleVideo);
+    video.addEventListener("pointerdown", () => {
+      revealOnlyTap = Boolean(
+        carousel &&
+        !video.paused &&
+        !video.ended &&
+        !carousel.classList.contains("is-controls-visible")
+      );
+    }, { capture: true });
+    video.addEventListener("click", (event) => {
+      if (revealOnlyTap) {
+        event.preventDefault();
+        revealOnlyTap = false;
+        showControls();
+        return;
+      }
+      toggleVideo();
+    });
 
     scrubber.addEventListener("input", seekToScrubberValue);
     scrubber.addEventListener("change", seekToScrubberValue);
@@ -206,11 +253,13 @@ function videoControls() {
     let isScrubbing = false;
     const stopScrubbing = () => {
       isScrubbing = false;
+      showControls();
     };
 
     scrubber.addEventListener("pointerdown", (event) => {
       event.preventDefault();
       isScrubbing = true;
+      keepControlsVisible();
       scrubber.setPointerCapture?.(event.pointerId);
       seekByClientX(event.clientX);
     });
@@ -225,6 +274,7 @@ function videoControls() {
     scrubber.addEventListener("mousedown", (event) => {
       event.preventDefault();
       isScrubbing = true;
+      keepControlsVisible();
       seekByClientX(event.clientX);
     });
     document.addEventListener("mousemove", (event) => {
@@ -239,6 +289,7 @@ function videoControls() {
       if (!touch) return;
       event.preventDefault();
       isScrubbing = true;
+      keepControlsVisible();
       seekByClientX(touch.clientX);
     }, { passive: false });
     scrubber.addEventListener("touchmove", (event) => {
@@ -273,15 +324,18 @@ function videoControls() {
     video.addEventListener("play", () => {
       slide.classList.add("playing");
       carousel?.classList.add("is-playing");
+      showControls();
     });
     video.addEventListener("pause", () => {
       slide.classList.remove("playing");
+      keepControlsVisible();
       if (!carousel?.querySelector(".video-slide.playing")) {
         carousel?.classList.remove("is-playing");
       }
     });
     video.addEventListener("ended", () => {
       slide.classList.remove("playing");
+      keepControlsVisible();
       if (!carousel?.querySelector(".video-slide.playing")) {
         carousel?.classList.remove("is-playing");
       }
@@ -297,6 +351,22 @@ function videoCarousel() {
     const nextButton = carousel.querySelector(".btn-video-next");
     const count = carousel.querySelector(".video-count");
     if (slides.length <= 1 || !prevButton || !nextButton) return;
+
+    let revealTimer = null;
+    const hasPlayingVideo = () => Boolean(carousel.querySelector(".video-slide.playing"));
+    const revealControls = () => {
+      carousel.classList.add("is-controls-visible");
+      if (revealTimer) {
+        clearTimeout(revealTimer);
+        revealTimer = null;
+      }
+      if (hasPlayingVideo()) {
+        revealTimer = setTimeout(() => {
+          carousel.classList.remove("is-controls-visible");
+          revealTimer = null;
+        }, 2200);
+      }
+    };
 
     let activeIndex = slides.findIndex((slide) => slide.classList.contains("active"));
     if (activeIndex < 0) activeIndex = 0;
@@ -344,6 +414,11 @@ function videoCarousel() {
 
     prevButton.addEventListener("click", () => update(activeIndex - 1, -1));
     nextButton.addEventListener("click", () => update(activeIndex + 1, 1));
+    carousel.addEventListener("pointermove", revealControls);
+    carousel.addEventListener("pointerdown", revealControls);
+    carousel.addEventListener("touchstart", revealControls, { passive: true });
+    carousel.addEventListener("focusin", revealControls);
+    carousel.addEventListener("keydown", revealControls);
     setPositions();
   });
 }
