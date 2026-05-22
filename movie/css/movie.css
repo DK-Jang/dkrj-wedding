@@ -1020,6 +1020,37 @@
 .cont-info {
   margin-top: 130px;
 }
+.cont-info .info-list {
+  margin-top: 54px;
+  padding: 0 16px;
+}
+.cont-info .info-box + .info-box {
+  margin-top: 70px;
+}
+.cont-info .tit-info-box {
+  display: block;
+  border-bottom: 2px solid #baae9f;
+  padding-bottom: 12px;
+  font-family: "LXGWWenKaiMonoKR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #191919;
+  text-align: center;
+}
+.cont-info .inner-box {
+  margin-top: 30px;
+}
+.cont-info .img-thumb {
+  display: block;
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+}
+.cont-info .txt-info {
+  margin-top: 30px;
+  font-size: 13px;
+  opacity: 0.8;
+}
 
 .cont-account {
   margin-top: 130px;

@@ -840,7 +840,12 @@ function guestWrite() {
 
 function galleryImg(imgCount, alwaysStartFromFirst = false) {
   function generateImageList(count) {
-    return Array.from({ length: count }, (_, i) => `image${i + 1}.jpg`);
+    const jpegImages = new Set([11, 12, 13, 14, 15, 16, 17]);
+    return Array.from({ length: count }, (_, i) => {
+      const imageNumber = i + 1;
+      const extension = jpegImages.has(imageNumber) ? "jpeg" : "jpg";
+      return `image${imageNumber}.${extension}`;
+    });
   }
   const imageList = generateImageList(imgCount);
   function getSlideHTML(i) {
