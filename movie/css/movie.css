@@ -662,6 +662,9 @@
   position: relative;
   margin-top: 40px;
 }
+.cont-video.video-fullscreen-active {
+  transform: none !important;
+}
 .cont-video .video-frame {
   position: relative;
   padding-top: 42px;
@@ -688,6 +691,41 @@
   width: 100%;
   border-radius: 0 0 16px 16px;
   background: #111;
+}
+.cont-video .inner-video:fullscreen,
+.cont-video .inner-video:-webkit-full-screen,
+.cont-video .inner-video.is-faux-fullscreen {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  background: #000;
+}
+.cont-video .inner-video:fullscreen .video-slide.active,
+.cont-video .inner-video:-webkit-full-screen .video-slide.active,
+.cont-video .inner-video.is-faux-fullscreen .video-slide.active {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.cont-video .inner-video:fullscreen .video-slide.active video,
+.cont-video .inner-video:-webkit-full-screen .video-slide.active video,
+.cont-video .inner-video.is-faux-fullscreen .video-slide.active video {
+  flex: 1 1 auto;
+  height: calc(100vh - 38px);
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+.cont-video .inner-video:fullscreen .video-controls,
+.cont-video .inner-video:-webkit-full-screen .video-controls,
+.cont-video .inner-video.is-faux-fullscreen .video-controls {
+  flex: 0 0 38px;
+}
+body.video-faux-fullscreen {
+  overflow: hidden;
 }
 .cont-video .video-slide {
   position: absolute;
@@ -731,7 +769,7 @@
 }
 .cont-video .video-controls {
   display: grid;
-  grid-template-columns: 34px 34px 1fr 42px;
+  grid-template-columns: 34px 34px 1fr 42px 30px;
   align-items: center;
   gap: 8px;
   height: 38px;
@@ -767,6 +805,34 @@
   height: 10px;
   border: 0;
   background: #fff;
+}
+.cont-video .btn-video-fullscreen {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+}
+.cont-video .btn-video-fullscreen:before,
+.cont-video .btn-video-fullscreen:after {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: #fff;
+  content: "";
+}
+.cont-video .btn-video-fullscreen:before {
+  left: 8px;
+  top: 8px;
+  border-left: 2px solid #fff;
+  border-top: 2px solid #fff;
+}
+.cont-video .btn-video-fullscreen:after {
+  right: 8px;
+  bottom: 8px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
 }
 .cont-video .video-time {
   font-family: "Montserrat";

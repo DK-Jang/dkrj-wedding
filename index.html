@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="assets/images/favicon.png" />
     <link rel="stylesheet" href="css/common.css" />
-    <link rel="stylesheet" href="movie/css/movie.css" />
+    <link rel="stylesheet" href="movie/css/movie.css?v=20260603-fullscreen2" />
     <link rel="preload" as="image" href="images/img_cover.jpeg" fetchpriority="high">
     <meta property="og:image" content="images/thumbnail.jpg" />
     <meta name="format-detection" content="telephone=no">
@@ -204,6 +204,7 @@
                   <span class="video-time video-current">0:00</span>
                   <input class="video-scrubber" type="range" min="0" max="1000" value="0" step="1" aria-label="영상 진행바">
                   <span class="video-time video-duration">0:00</span>
+                  <button class="btn-video-fullscreen" type="button" aria-label="전체화면"></button>
                 </div>
               </div>
               <div class="video-slide next" data-video-slide>
@@ -216,6 +217,7 @@
                   <span class="video-time video-current">0:00</span>
                   <input class="video-scrubber" type="range" min="0" max="1000" value="0" step="1" aria-label="영상 진행바">
                   <span class="video-time video-duration">0:00</span>
+                  <button class="btn-video-fullscreen" type="button" aria-label="전체화면"></button>
                 </div>
               </div>
               <button class="btn-video-nav btn-video-prev" type="button" aria-label="이전 영상"></button>
@@ -665,7 +667,7 @@
   <script src="js/aos.js"></script>
   <script src="js/photoswipe-lightbox.umd.min.js"></script>
   <script src="js/photoswipe.umd.min.js"></script>
-  <script src="movie/js/common.js"></script>
+  <script src="movie/js/common.js?v=20260603-fullscreen2"></script>
   <script>
     // Wait for SDK script tags (head-injected, async-by-default) to settle before
     // initialising features that depend on them. Falls back if a script never loads.

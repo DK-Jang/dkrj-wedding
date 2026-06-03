@@ -161,10 +161,11 @@ function videoControls() {
     const video = slide.querySelector(".wedding-video");
     const carousel = slide.closest("[data-video-carousel]");
     const playButton = slide.querySelector(".btn-video-play");
+    const fullscreenButton = slide.querySelector(".btn-video-fullscreen");
     const scrubber = slide.querySelector(".video-scrubber");
     const current = slide.querySelector(".video-current");
     const duration = slide.querySelector(".video-duration");
-    if (!video || !playButton || !scrubber || !current || !duration) return;
+    if (!video || !playButton || !fullscreenButton || !scrubber || !current || !duration) return;
 
     let controlsTimer = null;
 
@@ -226,9 +227,141 @@ function videoControls() {
       }
     };
 
+    const getFullscreenElement = () => (
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement
+    );
+
+    const getFullscreenTarget = () => slide.closest(".inner-video") || slide;
+
+    const enterNativeVideoFullscreen = () => {
+      if (video.webkitEnterFullscreen) {
+        video.webkitEnterFullscreen();
+      }
+    };
+
+    const enterFauxFullscreen = () => {
+      const videoSection = slide.closest(".cont-video");
+      getFullscreenTarget().classList.add("is-faux-fullscreen");
+      if (videoSection) {
+        videoSection.dataset.previousTransform = videoSection.style.transform;
+        videoSection.dataset.previousTransition = videoSection.style.transition;
+        videoSection.style.setProperty("transition", "none", "important");
+        videoSection.style.setProperty("transform", "none", "important");
+        videoSection.classList.add("video-fullscreen-active");
+      }
+      document.body.classList.add("video-faux-fullscreen");
+      updateFullscreenState();
+    };
+
+    const exitFauxFullscreen = () => {
+      const videoSection = slide.closest(".cont-video");
+      getFullscreenTarget().classList.remove("is-faux-fullscreen");
+      if (videoSection) {
+        if (videoSection.dataset.previousTransform) {
+          videoSection.style.transform = videoSection.dataset.previousTransform;
+        } else {
+          videoSection.style.removeProperty("transform");
+        }
+        if (videoSection.dataset.previousTransition) {
+          videoSection.style.transition = videoSection.dataset.previousTransition;
+        } else {
+          videoSection.style.removeProperty("transition");
+        }
+        delete videoSection.dataset.previousTransform;
+        delete videoSection.dataset.previousTransition;
+        videoSection.classList.remove("video-fullscreen-active");
+      }
+      document.body.classList.remove("video-faux-fullscreen");
+      updateFullscreenState();
+    };
+
+    const enterFullscreen = () => {
+      const fullscreenTarget = getFullscreenTarget();
+      const requestFullscreen =
+        fullscreenTarget.requestFullscreen ||
+        fullscreenTarget.webkitRequestFullscreen ||
+        fullscreenTarget.mozRequestFullScreen ||
+        fullscreenTarget.msRequestFullscreen;
+
+      if (!requestFullscreen) {
+        if (video.webkitEnterFullscreen) {
+          enterNativeVideoFullscreen();
+        } else {
+          enterFauxFullscreen();
+        }
+        return;
+      }
+
+      const fullscreenRequest = requestFullscreen.call(fullscreenTarget);
+      if (fullscreenRequest?.catch) {
+        fullscreenRequest.catch(() => {
+          if (video.webkitEnterFullscreen) {
+            enterNativeVideoFullscreen();
+          } else {
+            enterFauxFullscreen();
+          }
+        });
+      }
+    };
+
+    const exitFullscreen = () => {
+      if (getFullscreenTarget().classList.contains("is-faux-fullscreen")) {
+        exitFauxFullscreen();
+        return;
+      }
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        return;
+      }
+      if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+        return;
+      }
+      if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+        return;
+      }
+      if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    };
+
+    const updateFullscreenState = () => {
+      const fullscreenElement = getFullscreenElement();
+      const fullscreenTarget = getFullscreenTarget();
+      const isFullscreen = Boolean(
+        fullscreenTarget.classList.contains("is-faux-fullscreen") ||
+        fullscreenElement &&
+        (fullscreenElement === fullscreenTarget || fullscreenElement.contains(slide))
+      );
+      fullscreenButton.setAttribute("aria-label", isFullscreen ? "전체화면 종료" : "전체화면");
+      slide.classList.toggle("fullscreen", isFullscreen);
+    };
+
+    const toggleFullscreen = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      showControls();
+
+      if (getFullscreenElement() || getFullscreenTarget().classList.contains("is-faux-fullscreen")) {
+        exitFullscreen();
+      } else {
+        enterFullscreen();
+      }
+    };
+
     let revealOnlyTap = false;
 
     playButton.addEventListener("click", toggleVideo);
+    fullscreenButton.addEventListener("click", toggleFullscreen);
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && getFullscreenTarget().classList.contains("is-faux-fullscreen")) {
+        exitFauxFullscreen();
+      }
+    });
     video.addEventListener("pointerdown", () => {
       revealOnlyTap = Boolean(
         carousel &&
@@ -321,6 +454,10 @@ function videoControls() {
     video.addEventListener("loadedmetadata", updateProgress);
     video.addEventListener("timeupdate", updateProgress);
     video.addEventListener("durationchange", updateProgress);
+    document.addEventListener("fullscreenchange", updateFullscreenState);
+    document.addEventListener("webkitfullscreenchange", updateFullscreenState);
+    document.addEventListener("mozfullscreenchange", updateFullscreenState);
+    document.addEventListener("MSFullscreenChange", updateFullscreenState);
     video.addEventListener("play", () => {
       slide.classList.add("playing");
       carousel?.classList.add("is-playing");
@@ -340,6 +477,7 @@ function videoControls() {
         carousel?.classList.remove("is-playing");
       }
     });
+    updateFullscreenState();
     updateProgress();
   });
 }
