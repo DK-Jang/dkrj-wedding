@@ -286,6 +286,11 @@ function videoControls() {
         fullscreenTarget.mozRequestFullScreen ||
         fullscreenTarget.msRequestFullscreen;
 
+      if (video.paused || video.ended) {
+        enterFauxFullscreen();
+        return;
+      }
+
       if (!requestFullscreen) {
         if (video.webkitEnterFullscreen) {
           enterNativeVideoFullscreen();
