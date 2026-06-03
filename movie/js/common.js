@@ -168,6 +168,7 @@ function videoControls() {
     if (!video || !playButton || !fullscreenButton || !scrubber || !current || !duration) return;
 
     let controlsTimer = null;
+    let nativeFullscreenActive = false;
 
     const showControls = () => {
       if (!carousel) return;
@@ -286,14 +287,14 @@ function videoControls() {
         fullscreenTarget.mozRequestFullScreen ||
         fullscreenTarget.msRequestFullscreen;
 
-      if (video.paused || video.ended) {
-        enterFauxFullscreen();
-        return;
-      }
-
       if (!requestFullscreen) {
         if (video.webkitEnterFullscreen) {
           enterNativeVideoFullscreen();
+          setTimeout(() => {
+            if (!nativeFullscreenActive && !getFullscreenElement()) {
+              enterFauxFullscreen();
+            }
+          }, 700);
         } else {
           enterFauxFullscreen();
         }
@@ -302,13 +303,7 @@ function videoControls() {
 
       const fullscreenRequest = requestFullscreen.call(fullscreenTarget);
       if (fullscreenRequest?.catch) {
-        fullscreenRequest.catch(() => {
-          if (video.webkitEnterFullscreen) {
-            enterNativeVideoFullscreen();
-          } else {
-            enterFauxFullscreen();
-          }
-        });
+        fullscreenRequest.catch(enterFauxFullscreen);
       }
     };
 
@@ -339,6 +334,7 @@ function videoControls() {
       const fullscreenTarget = getFullscreenTarget();
       const isFullscreen = Boolean(
         fullscreenTarget.classList.contains("is-faux-fullscreen") ||
+        nativeFullscreenActive ||
         fullscreenElement &&
         (fullscreenElement === fullscreenTarget || fullscreenElement.contains(slide))
       );
@@ -463,6 +459,14 @@ function videoControls() {
     document.addEventListener("webkitfullscreenchange", updateFullscreenState);
     document.addEventListener("mozfullscreenchange", updateFullscreenState);
     document.addEventListener("MSFullscreenChange", updateFullscreenState);
+    video.addEventListener("webkitbeginfullscreen", () => {
+      nativeFullscreenActive = true;
+      updateFullscreenState();
+    });
+    video.addEventListener("webkitendfullscreen", () => {
+      nativeFullscreenActive = false;
+      updateFullscreenState();
+    });
     video.addEventListener("play", () => {
       slide.classList.add("playing");
       carousel?.classList.add("is-playing");
