@@ -1066,11 +1066,27 @@ body.video-faux-fullscreen {
   content: "";
 }
 .cont-location .link-transit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  border: 1px solid rgba(159, 79, 61, 0.42);
+  border-radius: 999px;
+  padding: 5px 11px;
+  background: rgba(159, 79, 61, 0.09);
+  color: #9f4f3d;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+}
+.cont-location .link-transit:after {
   display: inline-block;
-  margin-top: 8px;
-  border-bottom: 1px solid currentColor;
-  color: #8e7c65;
-  font-weight: 500;
+  width: 6px;
+  height: 6px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  content: "";
+  transform: rotate(45deg);
 }
 .cont-location .list-way {
   margin-top: 20px;
